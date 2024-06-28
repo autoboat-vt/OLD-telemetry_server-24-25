@@ -1,0 +1,29 @@
+// app.js
+
+const express = require('express');
+const bookRoutes = require("./routes/api/books");
+const waypointRoutes = require("./routes/api/waypoints");
+const cors = require("cors");
+const bodyParser = require("body-parser");
+
+const app = express();
+
+// use the cors middleware with the
+// origin and credentials options
+app.use(cors({ origin: true, credentials: true }));
+
+// use the body-parser middleware to parse JSON and URL-encoded data
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+// use the routes module as a middleware
+// for the /api path
+app.use("/api", bookRoutes);
+app.use("/api/send_autopilot_parameters", sendAutopilotParametersRoutes);
+app.use("/api/get_boat_status", boatStatusRoutes)
+
+app.get('/', (req, res) => res.send('Hello world!'));
+
+const port = process.env.PORT || 8080;
+
+app.listen(port, () => console.log(`Server running on port ${port}`));

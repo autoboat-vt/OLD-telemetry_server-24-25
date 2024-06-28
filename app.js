@@ -1,11 +1,13 @@
 // app.js
 
 const express = require('express');
-const connectDB = require('./config/db');
-const bookRoutes = require("./routes/api/books");
-const waypointRoutes = require("./routes/api/waypoints");
+// const connectDB = require('./config/db');
 const cors = require("cors");
 const bodyParser = require("body-parser");
+
+// const bookRoutes = require("./routes/api/books");
+const autopilotParametersRoutes = require("./routes/autopilot_parameters");
+const boatStatus = require("./routes/boat_status");
 
 const app = express();
 
@@ -19,14 +21,16 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // use the routes module as a middleware
 // for the /api path
-app.use("/api", bookRoutes);
-app.use("/api/wp", waypointRoutes);
+// app.use("/api", bookRoutes);
+app.use("/autopilot_parameters", autopilotParametersRoutes);
+app.use("/boat_status", boatStatus);
 
-//Connect to db
-connectDB();
+// //Connect to db
+// connectDB();
 
 app.get('/', (req, res) => res.send('Hello world!'));
 
-const port = process.env.PORT || 8082;
-
+const port = process.env.PORT || 8080;
+// //const port = 443;
+// console.log(process.env.PORT);
 app.listen(port, () => console.log(`Server running on port ${port}`));
