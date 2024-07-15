@@ -3,26 +3,26 @@
 const express = require('express');
 const router = express.Router();
 
-var storedAutopilotParameters = "";
+var storedAutopilotParameters = {};
 
 
 // Load Waypoint model
 // const Waypoint = require('../../models/Waypoints');
 // const Waypoints = require('../../models/Waypoints');
 
-// @route   GET autopilot_parameters/test
+// @route   GET /test
 // @desc    Tests route
 // @access  Public
 router.get('/test', (req, res) => res.send('autopilot_parameters route testing!'));
 
 
-// @route   GET autopilot_parameters/get
+// @route   GET /get
 // @desc    Gets latest entry
 // @access  Public
 router.get('/get', (req, res) => res.send(storedAutopilotParameters));
 
 
-// @route   POST autopilot_parameters/set
+// @route   POST /set
 // @desc    Add/save record
 // @access  Public
 router.post('/set', async (req, res) => {
@@ -34,6 +34,15 @@ router.post('/set', async (req, res) => {
   catch (err) {
     return res.status(500).json({ message: 'autopilot_parameters not set successfully'});
   }
+});
+
+
+// @route   POST /delete
+// @desc    deletes the current record (aka sets it to an empty dict {})
+// @access  Public
+router.post('/delete', async (req, res) => {
+  storedAutopilotParameters = {};
+  return res.status(200).json({ message: 'autopilot_parameters deleted successfully'})
 });
 
 module.exports = router;

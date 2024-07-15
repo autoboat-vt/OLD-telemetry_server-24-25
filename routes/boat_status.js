@@ -3,7 +3,7 @@
 const express = require('express');
 const router = express.Router();
 
-var storedBoatStatus = "";
+var storedBoatStatus = {};
 
 // @route   GET boat_status/test
 // @desc    Tests route
