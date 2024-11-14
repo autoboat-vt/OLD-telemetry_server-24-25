@@ -7,6 +7,7 @@ const bodyParser = require("body-parser");
 const autopilotParametersRoutes = require("./routes/autopilot_parameters");
 const boatStatus = require("./routes/boat_status");
 const waypoints = require("./routes/waypoints");
+const boatPublicIP = require("./routes/boat_public_ip")
 
 const app = express();
 
@@ -14,13 +15,14 @@ const app = express();
 app.use(cors({ origin: true, credentials: true }));
 
 // use the body-parser middleware to parse JSON and URL-encoded data
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json({ limit: '500mb' }));
+app.use(bodyParser.urlencoded({ extended: true, limit: '500mb' }));
 
 // use the routes module as a middleware
 app.use("/waypoints", waypoints)
 app.use("/autopilot_parameters", autopilotParametersRoutes);
 app.use("/boat_status", boatStatus);
+app.use("/boat_public_ip", boatPublicIP)
 
 app.get('/', (req, res) => res.send('Hello world!'));
 
