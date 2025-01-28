@@ -1,4 +1,7 @@
 // app.js
+// import { addRxPlugin } from 'rxdb';
+// import { RxDBDevModePlugin } from 'rxdb/plugins/dev-mode';
+// addRxPlugin(RxDBDevModePlugin);
 
 const express = require('express');
 const cors = require("cors");
@@ -8,6 +11,7 @@ const autopilotParametersRoutes = require("./routes/autopilot_parameters");
 const boatStatus = require("./routes/boat_status");
 const waypoints = require("./routes/waypoints");
 const boatPublicIP = require("./routes/boat_public_ip")
+const motorDataTest = require("./routes/motor_data_test")
 
 const app = express();
 
@@ -19,10 +23,11 @@ app.use(bodyParser.json({ limit: '500mb' }));
 app.use(bodyParser.urlencoded({ extended: true, limit: '500mb' }));
 
 // use the routes module as a middleware
-app.use("/waypoints", waypoints)
+app.use("/waypoints", waypoints);
 app.use("/autopilot_parameters", autopilotParametersRoutes);
 app.use("/boat_status", boatStatus);
-app.use("/boat_public_ip", boatPublicIP)
+app.use("/boat_public_ip", boatPublicIP);
+app.use("/motor_data_test", motorDataTest);
 
 app.get('/', (req, res) => res.send('Hello world!'));
 

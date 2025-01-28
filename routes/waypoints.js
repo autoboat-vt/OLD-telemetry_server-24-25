@@ -24,7 +24,7 @@ router.post('/set', async (req, res) => {
     try {
         // console.log(req.body.value);
         storedWaypoints = req.body.value;
-        res.status(200).json({ message: 'waypoints set successfully: ' + storedWaypoints})
+        res.status(200).json({ message: 'waypoints set successfully: ' + req.body.value})
     }
     catch (err) {
         res.status(500).json({ message: 'waypoints not set successfully'});
