@@ -26,8 +26,9 @@ router.get('/get', (req, res) => res.send(storedAutopilotParameters));
 //          This helps save on LTE data since we aren't sending data to the boat if it has already seen it.
 // @access  Public
 router.get('/get_new', (req, res) => {
-  res.send(storedNewAutopilotParameters); 
-  storedNewAutopilotParameters = {};
+  const response = storedNewAutopilotParameters;
+  storedNewAutopilotParameters = {}; 
+  res.send(response); 
 });
 
 // @route   POST /set
